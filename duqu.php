@@ -31,11 +31,45 @@ for ($row = 5; $row <= $highestRow ; $row++){//行数是以第5行开始
         
         $dataset[] = $sheet->getCell($column.$row)->getValue();//单元格值放进数组
         //echo $column.$row.":".$sheet->getCell($column.$row)->getValue()."<br />";
+       
+    }
+    //利用正则截取教室数据
+    if($dataset[9]){
+        $jiaoshi='/\d+/';
+        $string=$dataset[9];
+        if(preg_match($jiaoshi, $string,$matches)){
+            //var_dump($matches);
+            $dataset[9]=$matches[0];
+        }else{
+            echo '没有匹配到';
+        }
+    }
+    //利用正则截取周次数据
+    //
+    if($dataset[11]){
+        $zhouci='/\W/';
+        $string=$dataset[11];
+        if(preg_match($zhouci, $string,$matches)){
+            var_dump($matches);
+            $dataset[14]=$matches[0];
+        }else{
+            echo '没有匹配到';
+        }
+    //利用正则截取节次数据
+        $jieci='/\d+-\d+/';
+        $string=$dataset[11];
+        if(preg_match($jieci, $string,$matches)){
+            //var_dump($matches);
+            $dataset[13]=$matches[0];
+        }else{
+            echo '没有匹配到';
+        }
     }
     
-    $sqli="INSERT into kecheng (XINGMING,ROOM,WEEK,CLASS) values('$dataset[5]','$dataset[9]','$dataset[11]','$dataset[4]')";
+    $sqli="INSERT into kecheng (XINGMING,ROOM,WEEK,CLASS) values('$dataset[5]','$dataset[9]','$dataset[14]','$dataset[13]')";
     $conn ->query($sqli);
     
+    //打印
     // for($i = 0;$i < count($dataset);$i++){
     //     echo $dataset[$i].",";//输出每个单元格值
     // }
