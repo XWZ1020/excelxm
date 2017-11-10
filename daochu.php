@@ -23,9 +23,9 @@ $fileName = "{$date}.xlsx";
 	 exit;
  }
  $sql = "SELECT * from kecheng";
- $wp= mysqli_query($link,$sql);
+ $conn= mysqli_query($link,$sql);
  //$row = mysqli_fetch_array($wp);
- while($row = mysqli_fetch_assoc($wp)) {
+ while($row = mysqli_fetch_assoc($conn)) {
         $arr[]=$row;;
     }
 // var_dump($arr);die;
